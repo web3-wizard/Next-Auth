@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import { toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -21,12 +21,10 @@ const LoginPage = () => {
       setLoading(true);
       const response = await axios.post("/api/users/login", user);
       console.log("Login success ", response.data);
-      // ! TODO: configure react toast message properly
       toast.success("Login Successful");
       router.push("/profile");
     } catch (error: any) {
       console.log("Login Failed! ", error.message);
-      // ! TODO: configure react toast message properly
       toast.error(error.message);
     } finally {
       setLoading(false);
@@ -43,6 +41,9 @@ const LoginPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <div>
+        <Toaster />
+      </div>
       <h1 className="text-2xl text-white">
         {loading ? "Processing your data...." : "Login"}
       </h1>
